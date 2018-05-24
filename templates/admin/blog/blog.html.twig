@@ -1,0 +1,16 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block website %}
+  <h1>
+    博客
+    <small>博客</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="{{ path('admin_blog') }}"><i class="fa fa-dashboard"></i> 博客</a></li>
+    <li class="active">博客</li>
+  </ol>
+{% endblock %}
+
+{% block main %}
+{{ app.user.username }}--{{ app.user.id }}--{{ app.user.email }}
+{% endblock %}

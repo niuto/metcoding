@@ -1,0 +1,93 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block stylesheets %}
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('static/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+{% endblock %}
+
+{% block website %}
+  <h1>
+    分类
+    <small>系统</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="{{ path('admin_home') }}"><i class="fa fa-home"></i> 系统</a></li>
+    <li class="active">分类</li>
+  </ol>
+{% endblock %}
+
+{% block main %}
+<div class="col-xs-12">
+  <div class="box">
+    <div class="box-header">
+      <div class="pull-right">
+        <a href="{{ path('admin_category_edit') }}" class="label bg-green">&nbsp;<i class="fa fa-plus"></i>&nbsp;</a>
+      </div>
+      <h3 class="box-title">分类列表</h3>
+    </div>
+    <div class="box-body">
+      <table id="db-table" class="table table-bordered table-hover">
+        <thead>
+        <tr>
+          <th width="68">ID</th>
+          <th>名称</th>
+          <th>别名</th>
+          <th>路径</th>
+          <th>概述</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+          {% for data in datas %}
+            <tr>
+              <td>{{ data.id }}</td>
+              <td>{{ data.name }}</td>
+              <td>{{ data.alias }}</td>
+              <td>{{ data.pathName|default('----') }}</td>
+              <td>{{ data.summary }}</td>
+              <td><a href="{{ path('admin_category_edit', {'id':data.id}) }}" class="label label-primary">编辑</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>ID</th>
+            <th>名称</th>
+            <th>别名</th>
+            <th>路径</th>
+            <th>概述</th>
+            <th>操作</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<!-- DataTables -->
+<script src="{{ asset('static/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('static/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script>
+  $(function () {
+    $('#db-table').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false,
+      'language'    : {
+        'sInfo': '从 _START_ 到 _END_ / 共 _TOTAL_',
+        'oPaginate': {
+            'sFirst': '首页',
+            'sPrevious': '上页',
+            'sNext': '下页',
+            'sLast': '末页'
+        }
+      }
+    })
+  })
+</script>
+{% endblock %}

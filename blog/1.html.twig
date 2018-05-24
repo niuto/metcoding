@@ -1,0 +1,30 @@
+安装Doctrine ORM：
+<pre><code class="language-bash">composer require doctrine maker</code></pre>
+创建数据库：
+<pre><code class="language-bash">php bin/console doctrine:database:create</code></pre>
+创建模型类：
+<pre><code class="language-bash">php bin/console make:entity Data</code></pre>
+<pre><code class="language-php">// src/Entity/Product.php
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ */
+class Product
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    // add your own fields
+}
+</code></pre>
+迁移数据库：
+<pre><code class="language-bash">php bin/console doctrine:migrations:diff
+php bin/console doctrine:migrations:migrate
+</code></pre>

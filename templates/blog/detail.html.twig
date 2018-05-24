@@ -1,0 +1,47 @@
+{% extends 'blog/base.html.twig' %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('static/blog/css/detail.css') }}">
+<link rel="stylesheet" href="{{ asset('static/plus/prism/prism.css') }}">
+{% endblock %}
+
+{% block main %}
+<div class="container clearfix" style="margin: 15px auto;">
+    <div class="article">
+        <h1 class="title">{{ data.title }}</h1>
+        <div class="attribute">
+            <span style="float: right;">{{ data.views }}</span>
+            <span>{{ data.mtime|date('Y-m-d H:i:s') }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span>标签: <span class="green-a">ORM PHP</span></span>
+        </div>
+        <div class="content">
+            <p class="summary">{{ data.excerpt }}</p>
+            {% if data.type == 1 %}
+                {{ include(data.id~'.html.twig') }}
+            {% else %}
+                {{ data.content }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="aside">
+        <div class="aside-ad-right-top">
+            {# img height 48px #}
+            <img src="https://afp.alicdn.com/afp-creative/creative/u124884735/9b99c5d5fe5fe9593707a39ff2ae4689.png">
+        </div>
+        <dl class="list-art">
+            <dt>相关文章</dt>
+            <dd><a href="">TP5与TP3.2的可以通用的方法</a></dd>
+            <dd><a href="">owncloud源码分析1--部分修改Demo</a></dd>
+            <dd><a href="">Cordova-Android 插件开发</a></dd>
+            <dd><a href="">移动端WEB开发，click touch事件浅析</a></dd>
+            <dd><a href="">TP5与TP3.2的可以通用的方法</a></dd>
+            <dd><a href="">owncloud源码分析1--部分修改Demo</a></dd>
+        </dl>
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('static/plus/prism/prism.js') }}"></script>
+{% endblock %}

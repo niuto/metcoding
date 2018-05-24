@@ -1,0 +1,9 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block website %}
+  {{ parent() }}
+{% endblock %}
+
+{% block main %}
+{{ app.user.username }}--{{ app.user.id }}--{{ app.user.email }}
+{% endblock %}
