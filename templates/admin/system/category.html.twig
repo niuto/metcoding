@@ -29,12 +29,12 @@
       <table id="db-table" class="table table-bordered table-hover">
         <thead>
         <tr>
-          <th width="68">ID</th>
+          <th width="28">ID</th>
           <th>名称</th>
           <th>别名</th>
           <th>路径</th>
           <th>概述</th>
-          <th>操作</th>
+          <th width="68">操作</th>
         </tr>
         </thead>
         <tbody>
@@ -45,7 +45,10 @@
               <td>{{ data.alias }}</td>
               <td>{{ data.pathName|default('----') }}</td>
               <td>{{ data.summary }}</td>
-              <td><a href="{{ path('admin_category_edit', {'id':data.id}) }}" class="label label-primary">编辑</a></td>
+              <td>
+                <a href="{{ path('admin_category_edit', {'id':data.id}) }}" class="label label-primary">编辑</a>
+                <a href="{{ path('admin_category_delete', {'id':data.id}) }}" class="label label-danger">删除</a>
+              </td>
             </tr>
           {% endfor %}
         </tbody>

@@ -1,0 +1,84 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block stylesheets %}
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('static/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+{% endblock %}
+
+{% block website %}
+  <h1>
+    位置
+    <small>广告</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="{{ path('admin_home') }}"><i class="fa fa-home"></i> 广告</a></li>
+    <li class="active">位置</li>
+  </ol>
+{% endblock %}
+
+{% block main %}
+<div class="col-xs-12">
+  <div class="box">
+    <div class="box-header">
+      <h3 class="box-title">位置展示</h3>
+    </div>
+    <div class="box-body">
+      <table id="db-table" class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th width="58">ID</th>
+            <th width="108">名称</th>
+            <th>位置</th>
+            <th width="128">时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in datas %}
+            <tr>
+              <td>{{ data.id }}</td>
+              <td>{{ data.name }}</td>
+              <td>{{ data.description }}</td>
+              <td>{{ data.ctime }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>ID</th>
+            <th>名称</th>
+            <th>位置</th>
+            <th>时间</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<!-- DataTables -->
+<script src="{{ asset('static/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('static/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script>
+  $(function () {
+    $('#db-table').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : false,
+      'info'        : true,
+      'autoWidth'   : false,
+      'language'    : {
+        'sInfo': '从 _START_ 到 _END_ / 共 _TOTAL_',
+        'oPaginate': {
+            'sFirst': '首页',
+            'sPrevious': '上页',
+            'sNext': '下页',
+            'sLast': '末页'
+        }
+      }
+    })
+  })
+</script>
+{% endblock %}

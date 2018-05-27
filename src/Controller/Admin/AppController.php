@@ -7,6 +7,7 @@ use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class AppController extends Controller
@@ -106,13 +107,13 @@ class AppController extends Controller
             $menus['system']['navs']['admin_setting']['status'] = 1;
         }
         // 系统-分类
-        if (in_array($url, ['admin_home'])) {
+        if (preg_match('/admin_category/i', $url)) {
             $menus['system']['status'] = 1;
-            $menus['system']['navs']['admin_home']['status'] = 1;
+            $menus['system']['navs']['admin_category']['status'] = 1;
         }
         // 博客
         // 博客-博客
-        if (in_array($url, ['admin_blog'])) {
+        if (preg_match('/admin_blog/i', $url)) {
             $menus['blog']['status'] = 1;
             $menus['blog']['navs']['admin_blog']['status'] = 1;
         }
@@ -159,7 +160,7 @@ class AppController extends Controller
     }
 
     /**
-     * 分类
+     * 编辑/新增-分类
      *
      * @Route("/admin/category/edit/{id}", name="admin_category_edit", defaults={"id": "0"}, requirements={"id": "\d+"})
      */
@@ -176,7 +177,7 @@ class AppController extends Controller
         } else {
             $category = new Category();
         }
-        // var_dump($category); exit();
+        // dump($category); exit();
         return $this->render('admin/system/category_edit.html.twig', ['categorys' => $formatDatas, 'data' => $category]);
     }
 
@@ -209,5 +210,67 @@ class AppController extends Controller
         }
 
         return $datas;
+    }
+
+    /**
+     * 处理编辑/新增-分类
+     *
+     * @Route("/admin/category/edit/do", name="admin_category_edit_do")
+     * @Method("POST")
+     */
+    public function categoryEditDo(Request $request)
+    {
+        $id = $request->get('id');
+        $parentid = $request->get('parentid');
+        $name = $request->get('name');
+        $alias = $request->get('alias');
+        $summary = $request->get('summary');
+
+        // id非空时为编辑
+        if (!empty($id)) {
+            $category = $this->getDoctrine()
+                ->getRepository(Category::class)
+                ->find($id);
+        } else {
+            $category = new Category();
+        }
+        // 赋值
+        $category->setParentid($parentid);
+        $category->setName($name);
+        $category->setAlias($alias);
+        $category->setSummary($summary);
+        // dump($category); exit();
+
+        // 存储数据
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($category);
+        $entityManager->flush();
+
+        // 分类列表
+        return $this->redirectToRoute('admin_category');
+    }
+
+    /**
+     * 删除-分类
+     *
+     * @Route("/admin/category/delete/{id}", name="admin_category_delete", defaults={"id": "0"}, requirements={"id": "\d+"})
+     */
+    public function categoryDelete($id)
+    {
+        // dump($id); exit();
+        if (!empty($id)) {
+            $category = $this->getDoctrine()
+                ->getRepository(Category::class)
+                ->find($id);
+            // dump($category); exit();
+
+            // 删除数据
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($category);
+            $entityManager->flush();
+        }
+
+        // 分类列表
+        return $this->redirectToRoute('admin_category');
     }
 }

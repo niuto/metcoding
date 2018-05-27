@@ -99,7 +99,7 @@ class Blog
         return $this->cid;
     }
 
-    public function setCid(int $time): self
+    public function setCid(int $cid): self
     {
         $this->cid = $cid;
 
@@ -111,7 +111,7 @@ class Blog
         return $this->type;
     }
 
-    public function setType(int $time): self
+    public function setType(int $type): self
     {
         $this->type = $type;
 
@@ -123,7 +123,7 @@ class Blog
         return $this->mid;
     }
 
-    public function setMid(int $time): self
+    public function setMid(int $mid): self
     {
         $this->mid = $mid;
 
@@ -135,7 +135,7 @@ class Blog
         return $this->excerpt;
     }
 
-    public function setExcerpt(string $time): self
+    public function setExcerpt(string $excerpt): self
     {
         $this->excerpt = $excerpt;
 
@@ -147,7 +147,7 @@ class Blog
         return $this->content;
     }
 
-    public function setContent(string $time): self
+    public function setContent(string $content): self
     {
         $this->content = $content;
 
@@ -159,7 +159,7 @@ class Blog
         return $this->views;
     }
 
-    public function setViews(int $time): self
+    public function setViews(int $views): self
     {
         $this->views = $views;
 
@@ -171,7 +171,7 @@ class Blog
         return $this->status;
     }
 
-    public function setStatus(int $time): self
+    public function setStatus(int $status): self
     {
         $this->status = $status;
 
@@ -183,9 +183,21 @@ class Blog
         return $this->mtime;
     }
 
-    public function setMtime(int $time): self
+    public function setMtime(int $mtime): self
     {
         $this->mtime = $mtime;
+
+        return $this;
+    }
+
+    public function getCtime(): ?int
+    {
+        return $this->ctime;
+    }
+
+    public function setCtime(int $ctime): self
+    {
+        $this->ctime = $ctime;
 
         return $this;
     }
