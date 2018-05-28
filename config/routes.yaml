@@ -1,6 +1,15 @@
+# 前端
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+# 博客详情页相关文章
+blog_detail_about_article:
+    path: /blog/detail/about/article
+    controller: App\Controller\Blog\PublicController::blogDetailAboutArticle
+# 博客详情页右侧广告001
+blog_detail_link_001:
+    path: /blog/detail/001
+    controller: App\Controller\Blog\LinkController::blogDetailLink001
 
 # 后台
 # 登录

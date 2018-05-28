@@ -133,18 +133,21 @@ class LinkController extends Controller
                 'id' => 1,
                 'name' => '友情链接',
                 'description' => '友情链接',
+                'size' => '',
                 'ctime' => '2018-05-27 18:00:00',
             ),
             array(
                 'id' => 2,
                 'name' => '首页Banner',
                 'description' => '首页Banner',
+                'size' => '',
                 'ctime' => '2018-05-27 18:00:00',
             ),
             array(
                 'id' => 3,
                 'name' => '博客详情页001',
                 'description' => '博客详情页右侧广告001',
+                'size' => '298*48',
                 'ctime' => '2018-05-27 18:00:00',
             ),
         );

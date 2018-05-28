@@ -1,0 +1,6 @@
+<dl class="list-art">
+    <dt>相关文章</dt>
+    {% for data in datas %}
+        <dd><a href="{{ path('detail', {'id': data.id}) }}.html">{{ data.title }}</a></dd>
+    {% endfor %}
+</dl>

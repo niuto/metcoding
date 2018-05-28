@@ -1,5 +1,5 @@
 <?php
-// src/Controller/LuckyController.php
+// src/Controller/AppController.php
 namespace App\Controller\Blog;
 
 use App\Entity\Blog;
@@ -27,6 +27,7 @@ class AppController extends Controller
      *
      * @Route(
      *     "/detail/{id}.{_format}",
+     *     name="detail",
      *     defaults={"_format": "html"},
      *     requirements={
      *         "id": "\d+",
@@ -34,7 +35,7 @@ class AppController extends Controller
      *     }
      * )
      */
-    public function detail(Blog $blog): Response
+    public function detail(Blog $blog)
     {
         return $this->render('blog/detail.html.twig', ['data' => $blog]);
     }
