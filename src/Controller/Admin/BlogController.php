@@ -154,6 +154,20 @@ class BlogController extends Controller
      */
     public function blogDelete($id)
     {
-        return true;
+        // dump($id); exit();
+        if (!empty($id)) {
+            $blog = $this->getDoctrine()
+                ->getRepository(Blog::class)
+                ->find($id);
+            // dump($blog); exit();
+
+            // 删除数据
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($blog);
+            $entityManager->flush();
+        }
+
+        // 分类列表
+        return $this->redirectToRoute('admin_blog');
     }
 }

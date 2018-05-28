@@ -76,14 +76,14 @@ class AppController extends Controller
                 'status' => '0',
                 'icon' => 'fa-at',
                 'navs' => array(
-                    array(
+                    'admin_link' => array(
                         'name' => '管理',
-                        'url' => '###',
+                        'url' => $this->generateUrl('admin_link'),
                         'status' => '0',
                     ),
-                    array(
+                    'admin_link_site' => array(
                         'name' => '位置',
-                        'url' => '###',
+                        'url' => $this->generateUrl('admin_link_site'),
                         'status' => '0',
                     )
                 )
@@ -116,6 +116,17 @@ class AppController extends Controller
         if (preg_match('/admin_blog/i', $url)) {
             $menus['blog']['status'] = 1;
             $menus['blog']['navs']['admin_blog']['status'] = 1;
+        }
+        // 广告
+        // 管理-广告
+        if (preg_match('/admin_link/i', $url) && ($url != 'admin_link_site')) {
+            $menus['link']['status'] = 1;
+            $menus['link']['navs']['admin_link']['status'] = 1;
+        }
+        // 位置-广告
+        if ($url == 'admin_link_site') {
+            $menus['link']['status'] = 1;
+            $menus['link']['navs']['admin_link_site']['status'] = 1;
         }
 
         return $this->render('admin/components/nav.html.twig', ['menus' => $menus]);

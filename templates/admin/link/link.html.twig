@@ -1,0 +1,129 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block stylesheets %}
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('static/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+{% endblock %}
+
+{% block website %}
+  <h1>
+    管理
+    <small>广告</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="{{ path('admin_link') }}"><i class="fa fa-home"></i> 广告</a></li>
+    <li class="active">管理</li>
+  </ol>
+{% endblock %}
+
+{% block main %}
+<div class="col-xs-12">
+  <div class="box">
+    <div class="box-header">
+      <div class="pull-right">
+        <a href="{{ path('admin_link_edit') }}" class="label bg-green">&nbsp;<i class="fa fa-plus"></i>&nbsp;</a>
+      </div>
+      <h3 class="box-title">广告管理</h3>
+    </div>
+    <div class="box-body">
+      <table id="db-table" class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th width="38">ID</th>
+            <th width="128">名称</th>
+            <th>URL</th>
+            <th width="88">属性</th>
+            <th width="128">时间</th>
+            <th width="80">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {# /. #}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>ID</th>
+            <th>名称</th>
+            <th>位置</th>
+            <th>属性</th>
+            <th>时间</th>
+            <th>操作</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<!-- DataTables -->
+<script src="{{ asset('static/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('static/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script>
+  $(function () {
+    $('#db-table').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : false,
+      'info'        : true,
+      'autoWidth'   : false,
+      'language'    : {
+        'sInfo': '从 _START_ 到 _END_ / 共 _TOTAL_',
+        'oPaginate': {
+            'sFirst': '首页',
+            'sPrevious': '上页',
+            'sNext': '下页',
+            'sLast': '末页'
+        }
+      },
+      'serverSide'  : true,
+      'ajax'        : {
+        'url': "{{ path('admin_link_ajax') }}",
+        'type': 'POST'
+      },
+      'columns': [
+        {'data': 'id'},
+        {'data': 'name'},
+        {'data': 'url'},
+        {
+          'data': null,
+          'render': function(data) {
+            return ['文本', '本地图片', '远程图片'][data.type] + ' / ' + data.sid;
+          }
+        },
+        {
+          'data': null,
+          'render': function(data) {
+            return timetostr(data.ctime);
+          }
+        },
+        {
+          'data': null,
+          'render': function(data) {
+            return '<a href="{{ path("admin_link_edit") }}/'+data.id+'" class="label label-primary">编辑</a> ' +
+              '<a href="{{ path("admin_link_delete") }}/'+data.id+'" class="label label-danger">删除</a>';
+          }
+        }
+      ]
+    })
+  })
+// 时间戳转字符串
+function timetostr(timestamp) {
+  var t = new Date(timestamp*1000);
+  var y = t.getFullYear();
+  var m = t.getMonth() + 1;
+  var d = t.getDate();
+  var h = t.getHours();
+  var i = t.getMinutes();
+  var s = t.getSeconds();
+
+  return y + '-' + add0(m) + '-' + add0(d) + '&nbsp;' + add0(h) + ':' + add0(i) + ':' + add0(s);
+}
+// 小于10补0
+function add0(str) {
+  return str < 10 ? '0' + str : str;
+}
+</script>
+{% endblock %}
