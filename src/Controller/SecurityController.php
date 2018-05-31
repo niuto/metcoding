@@ -13,6 +13,12 @@ class SecurityController extends Controller
      */
     public function login(Request $request, AuthenticationUtils $authenticationUtils)
     {
+        // 已登录
+        if (!empty($this->getUser())) {
+            // 默认首页
+            return $this->redirectToRoute('admin_home');
+        }
+
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -27,7 +33,7 @@ class SecurityController extends Controller
     /**
      * 退出
      */
-    public function logout(): void
+    public function logout()
     {
         throw new \Exception('This should never be reached!');
     }
