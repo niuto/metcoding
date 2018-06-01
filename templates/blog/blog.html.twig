@@ -1,0 +1,28 @@
+{% extends 'blog/base.html.twig' %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('static/blog/css/component.css') }}">
+<link rel="stylesheet" href="{{ asset('static/blog/css/blog.css') }}">
+<link rel="stylesheet" href="{{ asset('static/plus/prism/prism.css') }}">
+{% endblock %}
+
+{% block main %}
+<div class="container clearfix" style="margin: 15px auto;">
+    <div class="blog">
+        <ul>
+            {% for data in datas %}
+                <li><a href="{{ path('detail', {'id': data.id}) }}.html">{{ data.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="aside">
+        {{ render(url('blog_detail_link_001')) }}
+        {{ render(url('blog_detail_about_article')) }}
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('static/plus/prism/prism.js') }}"></script>
+{% endblock %}

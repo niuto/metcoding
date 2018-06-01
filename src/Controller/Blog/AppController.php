@@ -3,6 +3,7 @@
 namespace App\Controller\Blog;
 
 use App\Entity\Blog;
+use App\Repository\BlogRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,15 +12,26 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class AppController extends Controller
 {
     /**
-     * 博客列表
+     * 首页
+     *
+     * @Route("/", name="index")
+     */
+    public function index()
+    {
+        return $this->render('blog/index.html.twig');
+    }
+
+    /**
+     * 博客
      *
      * @Route("/blog.{_format}", name="blog", defaults={"_format": "html"})
      */
-    public function list()
+    public function blog(BlogRepository $blog)
     {
-        return new Response(
-            '<html><body><a href="/detail/1.html">1</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/detail/2.html">2</a></body></html>'
-        );
+        // $blogs = $blog->findOneBy(['sid' => 3], ['id' => 'DESC']);
+        $blogs = $blog->findAll();
+
+        return $this->render('blog/blog.html.twig', ['datas' => $blogs]);
     }
 
     /**

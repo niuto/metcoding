@@ -25,35 +25,3 @@ pre {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
-
-.aside {
-    float: right;
-    width: 298px;
-    height: auto;
-}
-.aside-ad-right-top {
-    width: 100%;
-    height: auto;
-}
-.aside-ad-right-top img {
-    width: 100%;
-}
-dl.list-art {
-    padding-bottom: 10px;
-    margin-top: 15px;
-    border: 1px solid #e5e5e5;
-    border-radius: 4px;
-}
-dl.list-art dt {
-    padding: 2px 15px 0 15px;
-    margin-bottom: 10px;
-    height: 40px;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 38px;
-    border-bottom: 1px solid #e5e5e5;
-    background: #f5f5f5;
-}
-dl.list-art dd {
-    padding: 5px 15px;
-}
